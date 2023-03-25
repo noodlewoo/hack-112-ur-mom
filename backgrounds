@@ -1,0 +1,15 @@
+def onAppStart(app):
+    app.atHome = False
+    app.atLecture = False
+    app.atLibrary = True
+    app.home = 'https://www.cmu.edu/housing/our-communities/housing-images-tours/Donner/Donner%20standard%20double-min.JPG'
+    app.lecture = 'https://www.cmu.edu/computing/services/teach-learn/tes/classrooms/images/doherty_2210.jpg'
+    app.study = 'https://thetartan-assets.s3.amazonaws.com/uploads/31189/original/pillbox_finals_traviswolfe_img_0201.jpg'
+   
+def redrawAll(app):
+  if app.atHome:
+      drawImage(app.home, 0, 0)
+  if app.atLecture:
+      drawImage(app.lecture, 0, 0)
+  if app.atLibrary:
+      drawImage(app.study, 0, 0)
