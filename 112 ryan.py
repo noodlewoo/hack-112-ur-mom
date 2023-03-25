@@ -13,10 +13,9 @@ def reset(app):
     app.timePeriod = 'am'
     app.displayTime = app.time
     app.date = 'Mon'
-    app.text = 'Insert text here...'
-
-def onStep(app):
-    pass
+    app.text1 = 'You are a 15112 student and you have an'.ljust(40)
+    app.text2 = "exam on Thursday 8 am.".ljust(40)
+    app.text3 = "".ljust(40)
 
 def redrawAll(app):
     #tasks
@@ -39,9 +38,11 @@ def redrawAll(app):
     drawRect(10, 350, 40, 40, fill='grey')
     drawLabel(app.date, 30, 370, size=12)
 
-    #time and date
+    #textbox
     drawRect(60, 300, 330, 90, fill='grey')
-    drawLabel('Insert text here...', 225, 345, size=14)
+    drawLabel(app.text1, 225, 315, size=14, font = "monospace")
+    drawLabel(app.text2, 225, 330, size=14, font = "monospace")
+    drawLabel(app.text3, 225, 345, size=14, font = "monospace")
 
 def increaseTime(app, hours):
     app.time += hours
