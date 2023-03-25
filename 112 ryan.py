@@ -100,15 +100,48 @@ def decreaseHandH(app, hours):
         app.hygiene -= (5 * hours)
     else:
         app.hygiene = 1
-    
+
+def doEat(app):
+    if app.health >= 60:
+        app.health = 100
+    else:
+        app.health += 40
+    increaseTime(app, 1)
+
+def doSleep(app, hours):
+    healthgain = 10 * hours
+    if app.health + healthgain >= 100:
+        app.health = 100
+    else:
+        app.health += healthgain
+    increaseTime(app, hours)
+
+def doShower(app):
+    if app.hygiene > 50:
+            app.hygiene = 100
+        else:
+            app.hygiene += 50
+    increaseTime(app, 1)
+
+def doGetReady(app):
+    if app.hygiene > 75:
+            app.hygiene = 100
+        else:
+            app.hygiene += 25
+    increaseTime(app, 1)
+
 def doStudy(app):
     atLibrary = True
     if app.isCT: 
         app.ctProgress += 25 * app.focus
+        app.isCT = False
     if app.isFR:
         app.frProgress += 25 * app.focus
+        app.isCT = False
     if app.isMC:
         app.mcProgress += 25 * app.focus
+        app.isCT = False
+    increaseTime(app, 1)
 
 def onKeyPress(app, key):
     if key =='t':
