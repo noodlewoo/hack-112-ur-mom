@@ -167,7 +167,8 @@ def onKeyPress(app, key):
     if key == 'r':
         reset(app)
     if key == 'h':
-        decreaseHandH(app, 1) 
+        decreaseHealth(app, 1) 
+        decreaseHygiene(app, 1) 
 
 def main():
     runApp()
