@@ -7,8 +7,8 @@ def onAppStart(app):
     reset(app)
 
 def reset(app):
-    app.health = random.randint(70, 99)
-    app.hygiene = random.randint(70, 99)
+    app.health = random.randint(65, 95)
+    app.hygiene = random.randint(65, 95)
     app.time = 8
     app.timePeriod = 'am'
     app.displayTime = app.time
@@ -41,7 +41,7 @@ def redrawAll(app):
 
     #time and date
     drawRect(60, 300, 330, 90, fill='grey')
-    drawLabel('Insert text here...', 225, 345, size=12)
+    drawLabel('Insert text here...', 225, 345, size=14)
 
 def increaseTime(app, hours):
     app.time += hours
@@ -71,13 +71,23 @@ def dateChange(app):
     elif app.date == 'Wed':
         app.date = 'Thur'
     
-
+def decreaseHandH(app, hours):    
+    if app.health >= 10:
+        app.health -= (10 * hours)
+    else:
+        app.health = 1
+    if app.hygiene >= 10:
+        app.hygiene -= (5 * hours)
+    else:
+        app.hygiene = 1
 
 def onKeyPress(app, key):
     if key =='t':
         increaseTime(app, 1)
     if key == 'r':
         reset(app)
+    if key == 'h':
+        decreaseHandH(app, 1) 
 
 def main():
     runApp()
