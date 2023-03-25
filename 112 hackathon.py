@@ -8,6 +8,7 @@ def reset(app):
     app.hygiene = 43
     app.time = 8
     app.timePeriod = 'am'
+    app.displayTime = app.time
     app.date = 'Mon'
     app.text = 'Insert text here...'
 
@@ -25,7 +26,7 @@ def redrawAll(app):
     
     #time
     drawRect(10, 300, 40, 40, fill='grey')
-    drawLabel(f'{app.time} {app.timePeriod}', 30, 320, size=12)
+    drawLabel(f'{app.displayTime} {app.timePeriod}', 30, 320, size=12)
 
     #date
     drawRect(10, 350, 40, 40, fill='grey')
@@ -35,8 +36,39 @@ def redrawAll(app):
     drawRect(60, 300, 330, 90, fill='grey')
     drawLabel('Insert text here...', 225, 345, size=12)
 
+def increaseTime(app, hours):
+    app.time += hours
+
+    #checks for overflow
+    if app.time > 24:
+        app.time -= 24
+        dateChange(app)
+    
+    #changes the am and pm
+    if app.time >= 12 and app.time < 24:
+        app.timePeriod = 'pm'
+    else:
+        app.timePeriod = 'am'
+    
+    #changes the displayed time
+    if app.time <= 12:
+        app.displayTime = app.time
+    else:
+        app.displayTime = app.time - 12
+
+def dateChange(app):
+    if app.date == 'Mon':
+        app.date = 'Tues'
+    elif app.date == 'Tues':
+        app.date = 'Wed'
+    elif app.date == 'Wed':
+        app.date = 'Thur'
+    
+
+
 def onKeyPress(app, key):
-    pass
+    if key =='r':
+        increaseTime(app, 1)
 
 def main():
     runApp()
