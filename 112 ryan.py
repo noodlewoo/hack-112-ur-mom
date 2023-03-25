@@ -13,13 +13,32 @@ def reset(app):
     app.timePeriod = 'am'
     app.displayTime = app.time
     app.date = 'Mon'
-    app.text1 = 'You are a 15112 student and you have an'.ljust(40)
-    app.text2 = "exam on Thursday 8 am.".ljust(40)
-    app.text3 = "".ljust(40)
+    app.text1 = 'Good morning! You are a 15112 student'.ljust(40)
+    app.text2 = "and you have your final on Thursday 8".ljust(40)
+    app.text3 = "am. Do your best to study for it!".ljust(40)
+    app.isCT = False
+    app.isFR = False
+    app.isMC = False
+    app.ctProgress = 0
+    app.frProgress = 0
+    app.mcProgress = 0
+    app.focus = (app.health / 50 + app.hygiene / 50)/2
+    app.atHome = True
+    app.atLecture = False
+    app.atLibrary = False
+    app.home = 'https://www.cmu.edu/housing/our-communities/housing-images-tours/Donner/Donner%20standard%20double-min.JPG'
+    app.lecture = 'https://www.cmu.edu/computing/services/teach-learn/tes/classrooms/images/doherty_2210.jpg'
+    app.study = 'https://thetartan-assets.s3.amazonaws.com/uploads/31189/original/pillbox_finals_traviswolfe_img_0201.jpg'
 
 def redrawAll(app):
+    if app.atHome:
+        drawImage(app.home, 0, 0)
+    elif app.atLecture:
+        drawImage(app.lecture,0,0)
+    elif app.atLibrary:
+        drawImage(app.study,0,0)
     #tasks
-    drawRect(10, 10, 40, 40, fill='grey')
+    drawRect(10, 10, 40, 40, fill='lightgrey')
     drawLabel("Tasks", 30, 30, size=12)
     #health
     drawRect(60, 10, 160, 40, fill='black')
@@ -31,15 +50,15 @@ def redrawAll(app):
     drawLabel('Hygiene', 310, 30, size=20, fill='white', bold=True)
     
     #time
-    drawRect(10, 300, 40, 40, fill='grey')
+    drawRect(10, 300, 40, 40, fill='lightgrey')
     drawLabel(f'{app.displayTime} {app.timePeriod}', 30, 320, size=12)
 
     #date
-    drawRect(10, 350, 40, 40, fill='grey')
+    drawRect(10, 350, 40, 40, fill='lightgrey')
     drawLabel(app.date, 30, 370, size=12)
 
     #textbox
-    drawRect(60, 300, 330, 90, fill='grey')
+    drawRect(60, 300, 330, 90, fill='lightgrey')
     drawLabel(app.text1, 225, 315, size=14, font = "monospace")
     drawLabel(app.text2, 225, 330, size=14, font = "monospace")
     drawLabel(app.text3, 225, 345, size=14, font = "monospace")
@@ -81,6 +100,15 @@ def decreaseHandH(app, hours):
         app.hygiene -= (5 * hours)
     else:
         app.hygiene = 1
+    
+def doStudy(app):
+    atLibrary = True
+    if app.isCT: 
+        app.ctProgress += 25 * app.focus
+    if app.isFR:
+        app.frProgress += 25 * app.focus
+    if app.isMC:
+        app.mcProgress += 25 * app.focus
 
 def onKeyPress(app, key):
     if key =='t':
