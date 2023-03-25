@@ -28,7 +28,7 @@ def reset(app):
     app.frProgress = 0
     app.mcProgress = 0
     app.focus = (app.health / 50 + app.hygiene / 50)/2
-    
+
     #location
     app.atHome = True
     app.atLecture = False
@@ -132,16 +132,16 @@ def doSleep(app, hours):
 
 def doShower(app):
     if app.hygiene > 50:
-            app.hygiene = 100
-        else:
-            app.hygiene += 50
+        app.hygiene = 100
+    else:
+        app.hygiene += 50
     increaseTime(app, 1)
     decreaseHealth(1)
 
 def doGetReady(app):
     if app.hygiene > 75:
             app.hygiene = 100
-        else:
+    else:
             app.hygiene += 25
     increaseTime(app, 1)
     decreaseHealth(1)
