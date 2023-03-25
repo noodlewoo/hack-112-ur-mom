@@ -1,11 +1,14 @@
 from cmu_graphics import *
+import random
+import copy
+import math
 
 def onAppStart(app):
     reset(app)
 
 def reset(app):
-    app.health = 57
-    app.hygiene = 43
+    app.health = random.randint(70, 99)
+    app.hygiene = random.randint(70, 99)
     app.time = 8
     app.timePeriod = 'am'
     app.displayTime = app.time
@@ -16,13 +19,17 @@ def onStep(app):
     pass
 
 def redrawAll(app):
-    drawRect(10, 10, 40, 40, fill='black')
+    #tasks
+    drawRect(10, 10, 40, 40, fill='grey')
+    drawLabel("Tasks", 30, 30, size=12)
     #health
     drawRect(60, 10, 160, 40, fill='black')
     drawRect(60, 10, app.health*1.6, 40, fill='red')
+    drawLabel('Health', 140, 30, size=20, fill='white', bold=True)
     #hygiene
     drawRect(230, 10, 160, 40, fill='black')
     drawRect(230, 10, app.hygiene*1.6, 40, fill='green')
+    drawLabel('Hygiene', 310, 30, size=20, fill='white', bold=True)
     
     #time
     drawRect(10, 300, 40, 40, fill='grey')
@@ -67,8 +74,10 @@ def dateChange(app):
 
 
 def onKeyPress(app, key):
-    if key =='r':
+    if key =='t':
         increaseTime(app, 1)
+    if key == 'r':
+        reset(app)
 
 def main():
     runApp()
