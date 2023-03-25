@@ -9,13 +9,18 @@ def onAppStart(app):
 def reset(app):
     app.health = random.randint(65, 95)
     app.hygiene = random.randint(65, 95)
+    #time and date
     app.time = 8
     app.timePeriod = 'am'
     app.displayTime = app.time
     app.date = 'Mon'
+
+    #text
     app.text1 = 'Good morning! You are a 15112 student'.ljust(40)
     app.text2 = "and you have your final on Thursday 8".ljust(40)
     app.text3 = "am. Do your best to study for it!".ljust(40)
+
+    #studying stuff
     app.isCT = False
     app.isFR = False
     app.isMC = False
@@ -23,6 +28,8 @@ def reset(app):
     app.frProgress = 0
     app.mcProgress = 0
     app.focus = (app.health / 50 + app.hygiene / 50)/2
+    
+    #location
     app.atHome = True
     app.atLecture = False
     app.atLibrary = False
@@ -83,30 +90,37 @@ def increaseTime(app, hours):
     else:
         app.displayTime = app.time - 12
 
-def dateChange(app):
+def dateChange(app): #helper function
     if app.date == 'Mon':
         app.date = 'Tues'
     elif app.date == 'Tues':
         app.date = 'Wed'
     elif app.date == 'Wed':
         app.date = 'Thur'
-    
-def decreaseHandH(app, hours):    
+
+#decrease health per hour
+def decreaseHealth(app, hours):    
     if app.health >= 10:
         app.health -= (10 * hours)
     else:
         app.health = 1
+
+#decrease hygiene per hour
+def decreaseHygiene(app, hours):
     if app.hygiene >= 10:
         app.hygiene -= (5 * hours)
     else:
         app.hygiene = 1
 
+
+#All Action Functions
 def doEat(app):
     if app.health >= 60:
         app.health = 100
     else:
         app.health += 40
     increaseTime(app, 1)
+    decreaseHygiene(1)
 
 def doSleep(app, hours):
     healthgain = 10 * hours
@@ -122,6 +136,7 @@ def doShower(app):
         else:
             app.hygiene += 50
     increaseTime(app, 1)
+    decreaseHealth(1)
 
 def doGetReady(app):
     if app.hygiene > 75:
@@ -129,6 +144,7 @@ def doGetReady(app):
         else:
             app.hygiene += 25
     increaseTime(app, 1)
+    decreaseHealth(1)
 
 def doStudy(app):
     atLibrary = True
@@ -143,6 +159,8 @@ def doStudy(app):
         app.isCT = False
     increaseTime(app, 1)
 
+
+#tester
 def onKeyPress(app, key):
     if key =='t':
         increaseTime(app, 1)
