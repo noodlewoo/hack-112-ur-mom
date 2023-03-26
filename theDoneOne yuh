@@ -362,7 +362,7 @@ def domcStudy(app):
     if app.succeed:
         app.mcProgress += 10 * app.focus
     else:
-        app.mcPrtogress += 5*app.focus
+        app.mcProgress += 5*app.focus
     decreaseHealth(app, 1)
     decreaseHygiene(app, 1)
     increaseTime(app, 1)
