@@ -125,6 +125,12 @@ def dateChange(app): #helper function
         app.date = 'Wed'
     elif app.date == 'Wed':
         app.date = 'Thur'
+    elif app.date == 'Thur':
+        app.date == 'Fri'
+
+def checkTime(app): #helper function
+    if app.date == 'Thur' and app.time == 8:
+        ending(app)
 
 #decrease health per hour
 def decreaseHealth(app, hours):    
@@ -148,15 +154,22 @@ def doEat(app):
     else:
         app.health += 40
     increaseTime(app, 1)
-    decreaseHygiene(1)
+    decreaseHygiene(app, 1)
 
-def doSleep(app, hours):
+def doSleep(app):
+    app.location = app.home
+    hours = random.randint(6, 12)
+    app.message = f'You are now sleeping for {hours} hours.'
     healthgain = 10 * hours
     if app.health + healthgain >= 100:
         app.health = 100
     else:
         app.health += healthgain
     increaseTime(app, hours)
+
+    if (app.time > 8 and app.date == 'Thur') or app.date == "Fri":
+        app.message = 'You slept in and missed your exam. You failed'
+
 
 def doShower(app):
     if app.hygiene > 50:
