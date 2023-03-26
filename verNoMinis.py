@@ -22,7 +22,7 @@ def reset(app):
     app.text3 = ""
     app.text4 = ""
     app.text5 = ""
-    app.message = "Good morning, Kim Chee! You are a 15112 student and you have your final on Thursday 8 am. Do your best to study for it! Click on Tasks or press T to get started." 
+    app.message = "Good morning, Kim Chee! You are a 15112 student and you have your final on Wednesday 8 am. Do your best to study for it! Click on Tasks or press T to get started." 
     formatText(app, app.message)
 
     #studying stuff
@@ -175,7 +175,7 @@ def increaseTime(app, hours):
     else:
         app.displayTime = app.time - 12
 
-    if app.date == 'Thur' and app.time == 8:
+    if app.date == 'Wed' and app.time == 8:
         ending(app)
 
 
@@ -189,9 +189,6 @@ def dateChange(app): #helper function
     elif app.date == 'Thur':
         app.date == 'Fri'
 
-# def checkTime(app): #helper function
-#     if app.date == 'Thur' and app.time >= 8:
-#         ending(app)
 
 
 
@@ -233,7 +230,7 @@ def doSleep(app):
         app.health += healthgain
     decreaseHygiene(app, hours//4)
     increaseTime(app, hours)
-    if (app.date == 'Thur' and app.time > 8) or app.date =='Fri':
+    if (app.date == 'Wed' and app.time > 8) or app.date == 'Thu' or app.date == 'Fri':
         app.message = 'You slept through the exam. You failed. Press r to reset.'
         app.ended = True
 
@@ -263,7 +260,6 @@ def doctStudy(app):
     app.location = app.study
     app.message = 'You studied CTs for your 112 exam. You got everything wrong, and your hatred for CTs grows stronger. This took 1 hour.'
     app.ctProgress += 10 * app.focus
-    print('ctProgress', app.ctProgress)
     decreaseHealth(app, 1)
     decreaseHygiene(app, 1)
     increaseTime(app, 1)
@@ -272,7 +268,6 @@ def dofrStudy(app):
     app.location = app.study
     app.message = 'You studied FRs for your 112 exam. You wonder why you ever took this class. This took 1 hour.'
     app.frProgress += 10 * app.focus
-    print('frProgress', app.frProgress)
     decreaseHealth(app, 1)
     decreaseHygiene(app, 1)
     increaseTime(app, 1)
@@ -281,7 +276,6 @@ def domcStudy(app):
     app.location = app.study
     app.message = 'You studied MCs for your 112 exam. Your notes were illegible and you spent 1 hour trying to understand them.'
     app.mcProgress += 10 * app.focus
-    print('mcProgress', app.mcProgress)
     decreaseHealth(app, 1)
     decreaseHygiene(app, 1)
     increaseTime(app, 1)
