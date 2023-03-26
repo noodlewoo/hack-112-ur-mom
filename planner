@@ -1,0 +1,83 @@
+#planner
+    app.showPlanner = False
+    app.color = 'black'
+
+def redrawAll(app):
+    if app.atHome:
+        drawImage(app.home, 0, 0,)
+    elif app.atLecture:
+        drawImage(app.lecture,0,0)
+    elif app.atLibrary:
+        drawImage(app.study,0,0)
+    elif app.atBathroom:
+        drawImage(app.bathroom,0,0)
+    elif app.atRestaurant:
+        drawImage(app.restaurant,0,0)
+    #tasks
+    drawRect(10, 10, 40, 40, fill='lightgrey')
+    drawLabel("Tasks", 30, 30, size=12)
+    #health
+    drawRect(60, 10, 160, 40, fill='black')
+    drawRect(60, 10, app.health*1.6, 40, fill='red')
+    drawLabel('Health', 140, 30, size=20, fill='white', bold=True)
+    #hygiene
+    drawRect(230, 10, 160, 40, fill='black')
+    drawRect(230, 10, app.hygiene*1.6, 40, fill='green')
+    drawLabel('Hygiene', 310, 30, size=20, fill='white', bold=True)
+    
+    #time
+    drawRect(10, 300, 40, 40, fill='lightgrey')
+    drawLabel(f'{app.displayTime} {app.timePeriod}', 30, 320, size=12)
+
+    #date
+    drawRect(10, 350, 40, 40, fill='lightgrey')
+    drawLabel(app.date, 30, 370, size=12)
+
+    #textbox
+    drawRect(60, 300, 330, 90, fill='lightgrey')
+    drawLabel(app.text1, 235, 315, size=14, font = "monospace")
+    drawLabel(app.text2, 235, 330, size=14, font = "monospace")
+    drawLabel(app.text3, 235, 345, size=14, font = "monospace")
+
+    #planner
+    if app.showPlanner:
+        drawRect(60, 60, 330, 230, fill='white')
+        drawLabel('Welcome to your Planner!', 230, 70, size=14, font = "monospace", 
+                bold=True)
+        #checkboxes
+        drawRect(70, 90, 20, 20, fill=None, border='black')
+        drawRect(70, 120, 20, 20, fill=None, border='black')
+        drawRect(70, 150, 20, 20, fill=None, border='black')
+        drawRect(70, 180, 20, 20, fill=None, border='black')
+        drawRect(70, 210, 20, 20, fill=None, border='black')
+        drawRect(70, 240, 20, 20, fill=None, border='black')
+        
+        drawRect(240, 90, 20, 20, fill=None, border='black')
+        drawRect(240, 120, 20, 20, fill=None, border='black')
+        drawRect(240, 150, 20, 20, fill=None, border='black')
+        #tasks
+        
+        drawLabel('sleep', 115, 100, size=14, font = "monospace", bold=True, fill = app.color)
+        drawLabel('shower', 120, 130, size=14, font = "monospace", bold=True, fill = app.color)
+        drawLabel('get ready', 134, 160, size=14, font = "monospace", bold=True, fill = app.color)
+        drawLabel('breakfast', 134, 190, size=14, font = "monospace", bold=True, fill = app.color)
+        drawLabel('lunch', 115, 220, size=14, font = "monospace", bold=True, fill = app.color)
+        drawLabel('dinner', 120, 250, size=14, font = "monospace", bold=True, fill = app.color)
+        
+        drawLabel('code-tracing', 315, 100, size=14, font = "monospace", bold=True, fill = app.color)
+        drawLabel('free response', 320, 130, size=14, font = "monospace", bold=True, fill = app.color)
+        drawLabel('multiple choice', 325, 160, size=14, font = "monospace", bold=True, fill = app.color)
+
+def pointInSquare(app, mouseX, mouseY):
+    left = 10 - 30
+    top = 10 - 30
+    right = 10 + 30
+    bottom = 10 + 30
+    return(left <= mouseX <= right) and (top <= mouseY <= bottom)
+
+def onMousePress(app, mouseX, mouseY):
+    if pointInSquare(app, mouseX, mouseY):
+        app.showPlanner = not app.showPlanner
+
+def selectTask(app):
+    app.color = 'fireBrick'
