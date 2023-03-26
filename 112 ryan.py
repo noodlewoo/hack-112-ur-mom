@@ -21,7 +21,7 @@ def reset(app):
     app.text3 = ""
     app.text4 = ""
     app.text5 = ""
-    app.message = "Good morning! You are a 15112 student and you have your final on Thursday 8 am. Do your best to study for it!"
+    app.message = "Good morning! You are a 15112 student and you have your final on Wednesday 8 am. Do your best to study for it!"
     formatText(app, app.message)
 
     #studying stuff
@@ -131,7 +131,7 @@ def dateChange(app): #helper function
         app.date == 'Fri'
 
 def checkTime(app): #helper function
-    if app.date == 'Thur' and app.time == 8:
+    if app.date == 'Wed' and app.time == 8:
         ending(app)
 
 #decrease health per hour
@@ -169,7 +169,7 @@ def doSleep(app):
         app.health += healthgain
     increaseTime(app, hours)
 
-    if (app.time > 8 and app.date == 'Thur') or app.date == "Fri":
+    if (app.time > 8 and app.date == 'Wed') or app.date == "Thur" or app.date == "Fri:
         app.message = 'You slept in and missed your exam. You failed'
 
 
