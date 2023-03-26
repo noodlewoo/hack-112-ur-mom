@@ -16,9 +16,13 @@ def reset(app):
     app.date = 'Mon'
 
     #text
-    app.text1 = 'Good morning! You are a 15112 student'.ljust(40)
-    app.text2 = "and you have your final on Thursday 8".ljust(40)
-    app.text3 = "am. Do your best to study for it!".ljust(40)
+    app.text1 = ""
+    app.text2 = ""
+    app.text3 = ""
+    app.text4 = ""
+    app.text5 = ""
+    app.message = "Good morning! You are a 15112 student and you have your final on Thursday 8 am. Do your best to study for it!"
+    formatText(app, app.message)
 
     #studying stuff
     app.isCT = False
@@ -69,6 +73,30 @@ def redrawAll(app):
     drawLabel(app.text1, 225, 315, size=14, font = "monospace")
     drawLabel(app.text2, 225, 330, size=14, font = "monospace")
     drawLabel(app.text3, 225, 345, size=14, font = "monospace")
+    drawLabel(app.text4, 225, 360, size=14, font = "monospace")
+    drawLabel(app.text5, 225, 375, size=14, font = "monospace")
+
+def formatText(app, str):
+    words = str.split()
+    # Initialize variables
+    output_strings = []
+    current_string = ''
+    for word in words:
+        if len(current_string + word) > 40:
+            output_strings.append(current_string.strip())
+            current_string = ''
+        if current_string:
+            current_string += ' '
+        current_string += word
+    output_strings.append(current_string.strip())
+    for num in range(5):
+        output_strings.append("")
+    app.text1 = output_strings[0].ljust(40)
+    app.text2 = output_strings[1].ljust(40)
+    app.text3 = output_strings[2].ljust(40)
+    app.text4 = output_strings[3].ljust(40)
+    app.text5 = output_strings[4].ljust(40)
+
 
 def increaseTime(app, hours):
     app.time += hours
@@ -159,6 +187,28 @@ def doStudy(app):
         app.isCT = False
     increaseTime(app, 1)
 
+
+
+def ending(app):
+    if app.health < 10:
+        app.message = 'You died of lack of hunger/sleep. You missed your final too.'
+    elif app.hygiene < 10:
+        app.message = 'You smelled so bad that everyone fainted. The final did not happen.'
+    else:
+        score = (app.ctProgress + app.frProgress + app.mcProgress) // 3
+        if score == 100:
+            app.message = 'You got a perfect score and ascended to the level of Mike Taylor'
+        elif score >= 90:
+            app.message = 'You got an A. Good Job!'
+        elif score >= 80:
+            app.message = 'You got a B. Nice!'
+        elif score >= 70:
+            app.message = 'You got a C. Ehhhhh...'
+        elif score >= 60:
+            app.message = 'You got a D. Better luck next time.'
+        elif score >= 90:
+            app.message = 'You failed. You madeMike Taylor is sad.'
+            
 
 #tester
 def onKeyPress(app, key):
