@@ -169,7 +169,7 @@ def doSleep(app):
         app.health += healthgain
     increaseTime(app, hours)
 
-    if (app.time > 8 and app.date == 'Wed') or app.date == "Thur" or app.date == "Fri:
+    if (app.time > 8 and app.date == 'Wed') or app.date == "Thur" or app.date == "Fri":
         app.message = 'You slept in and missed your exam. You failed'
 
 
