@@ -37,11 +37,14 @@ def reset(app):
     #location
 
     app.home = 'https://www.cmu.edu/housing/our-communities/housing-images-tours/Donner/Donner%20standard%20double-min.JPG'
-    app.lecture = 'https://www.cmu.edu/computing/services/teach-learn/tes/classrooms/images/doherty_2210.jpg'
+    app.lecture = 'https://www.cmu.edu/conferences/images/dh-500x596-min.jpg'
     app.study = 'https://thetartan-assets.s3.amazonaws.com/uploads/31189/original/pillbox_finals_traviswolfe_img_0201.jpg'
     app.bathroom = 'https://www.cmu.edu/housing/our-communities/housing-images-tours/Resnik/Resnik%20suite%20bathroom%20with%20shower-min.JPG'
     app.restaurant = 'https://www.cmu.edu/dining/news/new-images/ABP900x600-min.jpg'
     app.location = app.home
+
+    #kimchee
+    app.kimchee = 'https://cdn-icons-png.flaticon.com/128/6518/6518455.png'
 
     #planner
     app.showPlanner = False
@@ -69,8 +72,11 @@ def formatText(app, str):
     app.text5 = output_strings[4].ljust(40)
 
 def redrawAll(app):
-
+    #location
     drawImage(app.location, 0, 0)
+
+    #kimchee
+    drawImage(app.kimchee,140,170) #put after app.location
 
     #tasks
     drawRect(10, 10, 40, 40, fill='blueViolet')
@@ -88,11 +94,11 @@ def redrawAll(app):
     drawRect(0, 300, 400, 100, fill='lightgrey')
     #time
     #drawRect(10, 300, 40, 40, fill='lightgrey')
-    drawLabel(f'{app.displayTime} {app.timePeriod}', 30, 320, size=12)
+    drawLabel(f'{app.displayTime} {app.timePeriod}', 25, 330, size=14, bold = True)
 
     #date
     #drawRect(10, 350, 40, 40, fill='lightgrey')
-    drawLabel(app.date, 30, 370, size=12)
+    drawLabel(app.date, 25, 360, size=14, bold = True)
 
     #message
     drawLabel(app.text1, 225, 315, size=14, font = "monospace", bold = True)
@@ -129,6 +135,7 @@ def redrawAll(app):
         drawLabel('code-tracing', 315, 130, size=14, font = "monospace", bold=True, fill = app.color)
         drawLabel('free response', 320, 160, size=14, font = "monospace", bold=True, fill = app.color)
         drawLabel('multiple choice', 325, 190, size=14, font = "monospace", bold=True, fill = app.color)
+        
 
 def pointInSquare(app, mouseX, mouseY):
     left = 10 - 30
@@ -206,11 +213,11 @@ def decreaseHygiene(app, hours):
 #All Action Functions
 def doEat(app, meal):
     app.location = app.restaurant
-    app.message = f'You are now eating {meal}. This will take 1 hour.'
-    if app.health >= 60:
+    app.message = f'You have eaten {meal}. The food was inedible. This took 1 hour.'
+    if app.health >= 75:
         app.health = 100
     else:
-        app.health += 40
+        app.health += 25
     decreaseHygiene(app, 1)
     increaseTime(app, 1)
     
@@ -218,8 +225,8 @@ def doEat(app, meal):
 def doSleep(app):
     app.location = app.home
     hours = random.randint(6, 10)
-    app.message = f'You are now sleeping for {hours} hours.'
-    healthgain = 10 * hours
+    app.message = f"You slept for {hours} hours listening to Mike Taylor ASMR. You dreamed you aced the final. Make that dream a reality!"
+    healthgain = 5 * hours
     if app.health + healthgain >= 100:
         app.health = 100
     else:
@@ -233,10 +240,10 @@ def doSleep(app):
 def doShower(app):
     app.location = app.bathroom
     app.message = 'You took a shower, and ended up in a cry session. This took 1 hour.'
-    if app.hygiene > 50:
+    if app.hygiene > 70:
         app.hygiene = 100
     else:
-        app.hygiene += 50
+        app.hygiene += 30
     decreaseHealth(app, 1)
     increaseTime(app, 1)
     
@@ -247,14 +254,14 @@ def doGetReady(app):
     if app.hygiene > 75:
             app.hygiene = 100
     else:
-            app.hygiene += 25
+            app.hygiene += 10
     decreaseHealth(app, 1)
     increaseTime(app, 1)
     
 
 def doctStudy(app):
     app.location = app.study
-    app.message = 'You studied CTs for your 112 exam. This took 1 hour.'
+    app.message = 'You studied CTs for your 112 exam. You got everything wrong, and your hatred for CTs grows stronger. This took 1 hour.'
     app.ctProgress += 10 * app.focus
     print('ctProgress', app.ctProgress)
     decreaseHealth(app, 1)
@@ -263,7 +270,7 @@ def doctStudy(app):
 
 def dofrStudy(app):
     app.location = app.study
-    app.message = 'You studied FRs for your 112 exam. This took 1 hour.'
+    app.message = 'You studied FRs for your 112 exam. You wonder why you ever took this class. This took 1 hour.'
     app.frProgress += 10 * app.focus
     print('frProgress', app.frProgress)
     decreaseHealth(app, 1)
@@ -272,7 +279,7 @@ def dofrStudy(app):
 
 def domcStudy(app):
     app.location = app.study
-    app.message = 'You studied MCs for your 112 exam. This took 1 hour.'
+    app.message = 'You studied MCs for your 112 exam. Your notes were illegible and you spent 1 hour trying to understand them.'
     app.mcProgress += 10 * app.focus
     print('mcProgress', app.mcProgress)
     decreaseHealth(app, 1)
@@ -281,10 +288,11 @@ def domcStudy(app):
 
 def ending(app):
     app.ended = True
+    app.location = app.lecture
     if app.health < 10:
         app.message = 'You died of lack of hunger/sleep. You missed your final too.'
     elif app.hygiene < 10:
-        app.message = 'You smelled so bad that everyone fainted. The final did not happen.'
+        app.message = 'You smelled so bad that everyone fainted. The final got cancelled.'
     else:
         score = (app.ctProgress + app.frProgress + app.mcProgress) // 3
         print(score)
