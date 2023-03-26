@@ -336,36 +336,36 @@ def doGetReady(app):
 
 def doctStudy(app):
     app.location = app.study
-    app.message = 'You studied CTs for your 112 exam. You got everything wrong, and your hatred for CTs grows stronger. This took 1 hour.'
+    app.message = 'You studied CTs for your 112 exam. You got everything wrong, and your hatred for CTs grows stronger. This took 2 hours.'
     if app.succeed:
-        app.ctProgress += 10 * app.focus
+        app.ctProgress += 25 * app.focus
     else:
-        app.ctProgress += 5*app.focus
-    decreaseHealth(app, 1)
+        app.ctProgress += 20 *app.focus
+    decreaseHealth(app, 2)
     decreaseHygiene(app, 1)
-    increaseTime(app, 1)
+    increaseTime(app, 2)
 
 def dofrStudy(app):
     app.location = app.study
-    app.message = 'You studied FRs for your 112 exam. You wonder why you ever took this class. This took 1 hour.'
+    app.message = 'You studied FRs for your 112 exam. You wonder why you ever took this class. This took 2 hours.'
     if app.succeed:
-        app.frProgress += 10 * app.focus
+        app.frProgress += 25 * app.focus
     else:
-        app.frProgress += 5*app.focus
-    decreaseHealth(app, 1)
+        app.frProgress += 20 *app.focus
+    decreaseHealth(app, 2)
     decreaseHygiene(app, 1)
-    increaseTime(app, 1)
+    increaseTime(app, 2)
 
 def domcStudy(app):
     app.location = app.study
-    app.message = 'You studied MCs for your 112 exam. Your notes were illegible and you spent 1 hour trying to understand them.'
+    app.message = 'You studied MCs for your 112 exam. Your notes were illegible and you spent 2 hours trying to understand them.'
     if app.succeed:
-        app.mcProgress += 10 * app.focus
+        app.mcProgress += 25 * app.focus
     else:
-        app.mcProgress += 5*app.focus
-    decreaseHealth(app, 1)
+        app.mcProgress += 20 * app.focus
+    decreaseHealth(app, 2)
     decreaseHygiene(app, 1)
-    increaseTime(app, 1)
+    increaseTime(app, 2)
 
 def ending(app):
     app.ended = True
@@ -380,15 +380,15 @@ def ending(app):
         if score >= 100:
             app.message = 'You got a perfect score and ascended to the level of Mike Taylor'
         elif score >= 90:
-            app.message = 'You got an A. Good Job!'
+            app.message = f' Your score is {score}. You got an A. Good Job!'
         elif score >= 80:
-            app.message = 'You got a B. Nice!'
+            app.message = f' Your score is {score}. You got a B. Nice!'
         elif score >= 70:
-            app.message = 'You got a C. Ehhhhh...'
+            app.message = f' Your score is {score}. You got a C. Ehhhhh...'
         elif score >= 60:
-            app.message = 'You got a D. Better luck next time.'
+            app.message = f' Your score is {score}. You got a D. Better luck next time.'
         else:
-            app.message = 'You failed. You made Mike Taylor sad.'
+            app.message = f' Your score is {score}. You failed. You made Mike Taylor sad.'
     app.message += ' Press r to reset.'
 #tester
 def onKeyPress(app, key):
