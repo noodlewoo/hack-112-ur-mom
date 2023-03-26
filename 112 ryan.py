@@ -117,6 +117,8 @@ def increaseTime(app, hours):
         app.displayTime = app.time
     else:
         app.displayTime = app.time - 12
+    
+    checkTime(app)
 
 def dateChange(app): #helper function
     if app.date == 'Mon':
